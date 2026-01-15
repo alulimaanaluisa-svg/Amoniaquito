@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NH₃ - Amoníaco</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00d9ff;
+            --secondary: #7b2ff7;
+            --accent: #ff6b35;
+            --dark: #0a0e27;
+            --darker: #050819;
+            --light: #e0f7ff;
+            --success: #00ff88;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, #1a1f3a 100%);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(ellipse at center, rgba(0, 217, 255, 0.1) 0%, transparent 70%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(123, 47, 247, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: pulse 4s ease-in-out infinite;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 40px rgba(0, 217, 255, 0.5);
+            z-index: 1;
+            letter-spacing: 0.1em;
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { filter: drop-shadow(0 0 20px rgba(0, 217, 255, 0.5)); }
+            50% { filter: drop-shadow(0 0 40px rgba(123, 47, 247, 0.8)); }
+        }
+
+        .subtitle {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            margin-top: 1rem;
+            color: var(--primary);
+            z-index: 1;
+            font-weight: 300;
+            letter-spacing: 0.3em;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            font-size: 2rem;
+            color: var(--primary);
+            animation: bounce 2s infinite;
+            z-index: 1;
+            cursor: pointer;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--light);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section {
+            margin-bottom: 6rem;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            border-left: 5px solid var(--accent);
+            padding-left: 1.5rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .team-card {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(123, 47, 247, 0.1));
+            border: 2px solid var(--primary);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .team-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 217, 255, 0.1), transparent);
+            transition: transform 0.6s;
+        }
+
+        .team-card:hover::before {
+            transform: rotate(180deg);
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 217, 255, 0.3);
+            border-color: var(--accent);
+        }
+
+        .team-card h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, rgba(10, 14, 39, 0.8), rgba(26, 31, 58, 0.8));
+            border: 2px solid var(--secondary);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(123, 47, 247, 0.3);
+            border-color: var(--primary);
+        }
+
+        .info-card h3 {
+            color: var(--accent);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .info-card p, .info-card ul {
+            line-height: 1.8;
+            color: var(--light);
+            font-size: 1.1rem;
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-card li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .info-card li:last-child {
+            border-bottom: none;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, var(--primary), var(--secondary), var(--accent));
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            width: 45%;
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(123, 47, 247, 0.1));
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            padding: 2rem;
+            position: relative;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .timeline-content:hover {
+            transform: scale(1.03);
+            box-shadow: 0 15px 30px rgba(0, 217, 255, 0.3);
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            border-color: var(--accent);
+        }
+
+        .timeline-date {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border: 4px solid var(--darker);
+            border-radius: 50%;
+            box-shadow: 0 0 20px var(--primary);
+        }
+
+        .molecule-viz {
+            background: radial-gradient(circle at center, rgba(0, 217, 255, 0.15), transparent);
+            border: 2px solid var(--primary);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .molecule {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 6rem;
+            color: var(--primary);
+            text-shadow: 0 0 30px rgba(0, 217, 255, 0.8);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .property-box {
+            background: linear-gradient(135deg, rgba(123, 47, 247, 0.2), rgba(0, 217, 255, 0.2));
+            border: 2px solid var(--secondary);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .property-box:hover {
+            transform: scale(1.05);
+            border-color: var(--primary);
+            box-shadow: 0 10px 25px rgba(0, 217, 255, 0.3);
+        }
+
+        .property-label {
+            font-size: 0.9rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .property-value {
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(255, 200, 0, 0.1));
+            border: 2px solid var(--accent);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .warning-box h3 {
+            color: var(--accent);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            background: var(--darker);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 2px solid var(--primary);
+            margin-top: 4rem;
+        }
+
+        footer p {
+            color: var(--light);
+            font-size: 1.1rem;
+        }
+
+        .utpl-logo {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            background: rgba(0, 217, 255, 0.1);
+            border: 2px solid var(--primary);
+            color: var(--light);
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .tab-button:hover {
+            background: rgba(0, 217, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 217, 255, 0.4);
+        }
+
+        .tab-button.active {
+            background: var(--primary);
+            color: var(--darker);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .accordion {
+            margin: 2rem 0;
+        }
+
+        .accordion-item {
+            background: linear-gradient(135deg, rgba(10, 14, 39, 0.8), rgba(26, 31, 58, 0.8));
+            border: 2px solid var(--secondary);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .accordion-item:hover {
+            border-color: var(--primary);
+        }
+
+        .accordion-header {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .accordion-header:hover {
+            background: rgba(0, 217, 255, 0.1);
+        }
+
+        .accordion-header h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .accordion-icon {
+            font-size: 1.5rem;
+            color: var(--accent);
+            transition: transform 0.3s;
+        }
+
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            padding: 0 1.5rem;
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 2000px;
+            padding: 0 1.5rem 1.5rem 1.5rem;
+            transition: max-height 0.5s ease-in;
+        }
+
+        .process-image {
+            width: 100%;
+            max-width: 400px;
+            height: 300px;
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.2), rgba(123, 47, 247, 0.2));
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1rem auto;
+            font-size: 1.2rem;
+            color: var(--light);
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .image-note {
+            background: rgba(255, 107, 53, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 5px;
+            font-size: 0.95rem;
+            color: var(--light);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 4rem; }
+            .subtitle { font-size: 1.2rem; }
+            .section-title { font-size: 2rem; }
+            .timeline::before { left: 20px; }
+            .timeline-content { width: calc(100% - 60px); margin-left: 60px; }
+            .timeline-item:nth-child(even) .timeline-content { margin-left: 60px; }
+            .timeline-dot { left: 20px; }
+            nav ul { gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a onclick="scrollToSection('inicio')">Inicio</a></li>
+            <li><a onclick="scrollToSection('equipo')">Equipo</a></li>
+            <li><a onclick="scrollToSection('propiedades')">Propiedades</a></li>
+            <li><a onclick="scrollToSection('historia')">Historia</a></li>
+            <li><a onclick="scrollToSection('aplicaciones')">Aplicaciones</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero" id="inicio">
+        <h1>NH₃</h1>
+        <p class="subtitle">AMONÍACO</p>
+        <div class="scroll-indicator" onclick="scrollToSection('equipo')">↓</div>
+    </div>
+
+    <div class="container">
+        <section class="section" id="equipo">
+            <h2 class="section-title">Nuestro Equipo</h2>
+            <div class="team-grid">
+                <div class="team-card">
+                    <h3>Ariana Peña</h3>
+                    <p>Ingeniería Química</p>
+                </div>
+                <div class="team-card">
+                    <h3>Jennifer Sarango</h3>
+                    <p>Ingeniería Química</p>
+                </div>
+                <div class="team-card">
+                    <h3>Ariel Parra</h3>
+                    <p>Ingeniería Química</p>
+                </div>
+                <div class="team-card">
+                    <h3>Ali Panamito</h3>
+                    <p>Ingeniería Química</p>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 3rem;">
+                <p class="utpl-logo">Universidad Técnica Particular de Loja</p>
+                <p style="color: var(--accent); font-size: 1.2rem; margin-top: 0.5rem;">Introducción a la Ingeniería Química</p>
+                <p style="color: var(--light); margin-top: 0.5rem;">Octubre 2025 - Febrero 2026</p>
+            </div>
+        </section>
+
+        <section class="section" id="propiedades">
+            <h2 class="section-title">Propiedades del Amoníaco</h2>
+            
+            <div class="molecule-viz">
+                <div class="molecule">NH₃</div>
+                <p style="font-size: 1.3rem; color: var(--light); margin-top: 1rem;">
+                    Geometría Trigonal Piramidal | Ángulo H-N-H: 106.7°
+                </p>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-button active" onclick="showTab('fisicas')">Propiedades Físicas</button>
+                <button class="tab-button" onclick="showTab('quimicas')">Propiedades Químicas</button>
+                <button class="tab-button" onclick="showTab('moleculares')">Estructura Molecular</button>
+            </div>
+
+            <div id="fisicas" class="tab-content active">
+                <div class="properties-grid">
+                    <div class="property-box">
+                        <div class="property-label">Punto de Ebullición</div>
+                        <div class="property-value">-33.3°C</div>
+                    </div>
+                    <div class="property-box">
+                        <div class="property-label">Punto de Fusión</div>
+                        <div class="property-value">-77.7°C</div>
+                    </div>
+                    <div class="property-box">
+                        <div class="property-label">Densidad Relativa</div>
+                        <div class="property-value">0.589</div>
+                    </div>
+                    <div class="property-box">
+                        <div class="property-label">Solubilidad</div>
+                        <div class="property-value">>30 g/100mL</div>
+                    </div>
+                    <div class="property-box">
+                        <div class="property-label">pH (Sol. 1M)</div>
+                        <div class="property-value">11.6</div>
+                    </div>
+                    <div class="property-box">
+                        <div class="property-label">Entalpía Vaporización</div>
+                        <div class="property-value">23.35 kJ/mol</div>
+                    </div>
+                </div>
+                
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <h3>Estado Gaseoso</h3>
+                            <span class="accordion-icon">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Gas incoloro con olor característico y picante, fácilmente perceptible en bajas concentraciones. Más ligero que el aire debido a su baja densidad relativa (0.589 veces la del aire atmosférico).</p>
+                            <p style="margin-top: 1rem;">El amoniaco se desodoriza fácilmente al reaccionar con ácidos, formando sales de amonio (como NH₄Cl o (NH₄)₂SO₄), que son sólidas, estables y sin olor.</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <h3>Estado Líquido</h3>
+                            <span class="accordion-icon">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p><strong>Constante dieléctrica:</strong> ε ≈ 22, lo que le confiere fuertes propiedades ionizantes, similares en cierto grado al agua.</p>
+                            <p style="margin-top: 1rem;"><strong>Entalpía de vaporización:</strong> 23.35 kJ/mol (comparada con 8.19 kJ/mol del metano o 14.6 kJ/mol de la fosfina). Esta alta entalpía permite su uso en laboratorios en recipientes no aislados sin necesidad inmediata de refrigeración criogénica.</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <h3>Estado Sólido</h3>
+                            <span class="accordion-icon">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>El amoniaco cristaliza en una estructura de simetría cúbica a -77.7°C, formando cristales blancos.</p>
+                            <ul style="margin-top: 1rem;">
+                        <li><strong>Barrera energética:</strong> 24.7 kJ/mol</li>
+                        <li><strong>Frecuencia resonante:</strong> 23.79 GHz</li>
+                        <li><strong>Longitud de onda:</strong> 1.260 cm (radiación de microondas)</li>
+                        <li><strong>Relevancia histórica:</strong> Primera señal observada en espectroscopia de microondas</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <h3>⚠️ Seguridad y Manejo</h3>
+                <p><strong>Pictogramas GHS:</strong> GHS05 (Corrosivo) | GHS07 (Nocivo)</p>
+                <p style="margin-top: 1rem;">El amoníaco es corrosivo y puede causar quemaduras graves en piel y ojos. Su inhalación puede irritar severamente las vías respiratorias. Siempre manipular en áreas bien ventiladas con equipo de protección adecuado.</p>
+            </div>
+        </section>
+
+        <section class="section" id="historia">
+            <h2 class="section-title">Historia y Evolución</h2>
+            
+            <div class="info-card" style="margin-bottom: 3rem;">
+                <h3>Descubrimiento Inicial (1774)</h3>
+                <p>El amoníaco fue aislado por primera vez por el químico sueco <strong>Carl Wilhelm Scheele</strong>, quien lo identificó como un gas alcalino producido al calentar sal de amonio con óxidos metálicos.</p>
+                <p style="margin-top: 1rem;">El nombre "amoníaco" deriva del término griego <em>ammoniakos</em>, en referencia al sal ammoniac (cloruro de amonio), sustancia conocida desde la antigüedad y asociada al templo del dios Amón en Libia.</p>
+            </div>
+
+            <div class="image-note">
+                📸 <strong>Nota sobre las imágenes:</strong> Tu documento incluye 6 imágenes históricas de los procesos de obtención del amoníaco (1774, 1785, 1823, 1908-1913, 1914). Como estas imágenes estaban incrustadas en el documento Word, necesitarías subirlas por separado para incluirlas en la página web. Por ahora, he creado espacios visuales que representan donde irían estas imágenes.
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">1774</div>
+                        <h3>Aislamiento en Laboratorio - Método de Priestley</h3>
+                        <svg class="process-svg" viewBox="0 0 400 300" style="width: 100%; max-width: 400px; margin: 1rem auto; display: block;">
+                            <!-- Retorta de Priestley -->
+                            <defs>
+                                <linearGradient id="glass1" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#00d9ff;stop-opacity:0.3" />
+                                    <stop offset="100%" style="stop-color:#7b2ff7;stop-opacity:0.3" />
+                                </linearGradient>
+                            </defs>
+                            <!-- Mesa -->
+                            <rect x="50" y="220" width="300" height="10" fill="#8b4513" opacity="0.6"/>
+                            <!-- Retorta -->
+                            <ellipse cx="120" cy="180" rx="40" ry="50" fill="url(#glass1)" stroke="#00d9ff" stroke-width="3"/>
+                            <path d="M 160 160 Q 200 140, 250 150 L 250 200" fill="none" stroke="#00d9ff" stroke-width="3"/>
+                            <!-- Recipiente con mercurio -->
+                            <rect x="230" y="180" width="60" height="40" fill="url(#glass1)" stroke="#00d9ff" stroke-width="2"/>
+                            <rect x="235" y="210" width="50" height="10" fill="#c0c0c0" opacity="0.8"/>
+                            <!-- Gas -->
+                            <circle cx="260" cy="195" r="8" fill="#00ff88" opacity="0.6"/>
+                            <circle cx="270" cy="190" r="6" fill="#00ff88" opacity="0.5"/>
+                            <!-- Fuego -->
+                            <path d="M 100 200 Q 110 185, 105 170 Q 115 180, 120 165 Q 125 180, 135 170 Q 130 185, 140 200" fill="#ff6b35" opacity="0.7"/>
+                            <!-- Etiquetas -->
+                            <text x="200" y="30" fill="#00d9ff" font-size="16" font-weight="bold" text-anchor="middle">Método Priestley (1774)</text>
+                            <text x="90" y="250" fill="#e0f7ff" font-size="12">NH₄Cl + Ca(OH)₂</text>
+                            <text x="240" y="250" fill="#e0f7ff" font-size="12">Mercurio</text>
+                        </svg>
+                        <p><strong>Proceso:</strong> Reacción de desplazamiento simple en fase sólida/gas.</p>
+                        <p><strong>Método:</strong> Joseph Priestley mezcló cloruro de amonio (NH₄Cl) con cal viva (Ca(OH)₂) y calentó la mezcla en una retorta de vidrio.</p>
+                        <p><strong>Innovación:</strong> Recolectó el gas sobre mercurio líquido ("aire alcalino"), ya que el amoníaco es muy soluble en agua, permitiendo aislar el gas puro por primera vez.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">1785</div>
+                        <h3>Descomposición Eléctrica - Análisis de Berthollet</h3>
+                        <svg class="process-svg" viewBox="0 0 400 300" style="width: 100%; max-width: 400px; margin: 1rem auto; display: block;">
+                            <!-- Electrólisis Berthollet -->
+                            <defs>
+                                <linearGradient id="glass2" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#7b2ff7;stop-opacity:0.3" />
+                                    <stop offset="100%" style="stop-color:#00d9ff;stop-opacity:0.3" />
+                                </linearGradient>
+                            </defs>
+                            <!-- Tubo de vidrio -->
+                            <rect x="150" y="80" width="100" height="160" rx="10" fill="url(#glass2)" stroke="#7b2ff7" stroke-width="3"/>
+                            <!-- Gas NH3 -->
+                            <circle cx="200" cy="120" r="12" fill="#00ff88" opacity="0.6"/>
+                            <circle cx="185" cy="140" r="10" fill="#00ff88" opacity="0.5"/>
+                            <circle cx="215" cy="135" r="11" fill="#00ff88" opacity="0.5"/>
+                            <!-- Electrodos -->
+                            <line x1="160" y1="100" x2="180" y2="100" stroke="#ff6b35" stroke-width="4"/>
+                            <line x1="220" y1="100" x2="240" y2="100" stroke="#00d9ff" stroke-width="4"/>
+                            <!-- Chispas eléctricas -->
+                            <path d="M 180 100 L 185 110 L 182 110 L 187 120" stroke="#ffff00" stroke-width="2" fill="none"/>
+                            <path d="M 220 100 L 215 110 L 218 110 L 213 120" stroke="#ffff00" stroke-width="2" fill="none"/>
+                            <circle cx="185" cy="110" r="3" fill="#ffff00" opacity="0.8"/>
+                            <circle cx="215" cy="110" r="3" fill="#ffff00" opacity="0.8"/>
+                            <!-- Gases separados -->
+                            <circle cx="200" cy="200" r="8" fill="#4169e1" opacity="0.6"/>
+                            <text x="218" y="205" fill="#4169e1" font-size="11">N₂</text>
+                            <circle cx="185" cy="215" r="6" fill="#ff1493" opacity="0.6"/>
+                            <circle cx="215" cy="215" r="6" fill="#ff1493" opacity="0.6"/>
+                            <text x="170" y="235" fill="#ff1493" font-size="11">H₂</text>
+                            <!-- Título -->
+                            <text x="200" y="30" fill="#7b2ff7" font-size="16" font-weight="bold" text-anchor="middle">Berthollet (1785)</text>
+                            <text x="200" y="50" fill="#e0f7ff" font-size="12" text-anchor="middle">Descomposición Eléctrica</text>
+                            <text x="200" y="270" fill="#e0f7ff" font-size="11" text-anchor="middle">NH₃ → N₂ + 3H₂</text>
+                        </svg>
+                        <p><strong>Proceso:</strong> Electrólisis con chispa eléctrica (Análisis elemental).</p>
+                        <p><strong>Método:</strong> Claude Louis Berthollet aplicó descargas eléctricas continuas al gas amoníaco en un tubo de vidrio.</p>
+                        <p><strong>Descubrimiento:</strong> La electricidad rompió los enlaces del NH₃, separándolo en N₂ e H₂. Observó que el volumen se duplicaba, deduciendo la proporción estequiométrica 1:3 de nitrógeno a hidrógeno.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">1823</div>
+                        <h3>Licuefacción por Presión - Tubo de Faraday</h3>
+                        <svg class="process-svg" viewBox="0 0 400 300" style="width: 100%; max-width: 400px; margin: 1rem auto; display: block;">
+                            <!-- Tubo de Faraday -->
+                            <defs>
+                                <linearGradient id="glass3" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#00d9ff;stop-opacity:0.4" />
+                                    <stop offset="100%" style="stop-color:#7b2ff7;stop-opacity:0.4" />
+                                </linearGradient>
+                            </defs>
+                            <!-- Tubo en V -->
+                            <path d="M 100 100 L 100 180 Q 100 200, 120 200 L 280 200 Q 300 200, 300 180 L 300 100" 
+                                  fill="url(#glass3)" stroke="#00d9ff" stroke-width="4"/>
+                            <!-- Lado caliente -->
+                            <rect x="70" y="80" width="60" height="30" fill="#ff6b35" opacity="0.3" rx="5"/>
+                            <text x="100" y="100" fill="#ff6b35" font-size="14" text-anchor="middle">CALOR</text>
+                            <!-- Compuesto químico -->
+                            <rect x="85" y="160" width="30" height="20" fill="#00ff88" opacity="0.6"/>
+                            <!-- Gas NH3 -->
+                            <circle cx="200" cy="195" r="6" fill="#00ff88" opacity="0.7"/>
+                            <circle cx="220" cy="193" r="5" fill="#00ff88" opacity="0.6"/>
+                            <circle cx="240" cy="195" r="6" fill="#00ff88" opacity="0.7"/>
+                            <!-- Lado frío -->
+                            <rect x="270" y="80" width="60" height="30" fill="#00d9ff" opacity="0.3" rx="5"/>
+                            <text x="300" y="100" fill="#00d9ff" font-size="14" text-anchor="middle">FRÍO</text>
+                            <!-- Hielo -->
+                            <rect x="280" y="60" width="10" height="10" fill="#ffffff" opacity="0.6"/>
+                            <rect x="295" y="55" width="8" height="8" fill="#ffffff" opacity="0.6"/>
+                            <rect x="310" y="60" width="10" height="10" fill="#ffffff" opacity="0.6"/>
+                            <!-- NH3 líquido -->
+                            <ellipse cx="290" cy="175" rx="8" ry="12" fill="#00d9ff" opacity="0.8"/>
+                            <text x="310" y="180" fill="#00d9ff" font-size="12">NH₃(l)</text>
+                            <!-- Flechas de presión -->
+                            <path d="M 150 210 L 160 210 L 155 205 M 160 210 L 155 215" stroke="#ff6b35" stroke-width="2" fill="none"/>
+                            <path d="M 250 210 L 240 210 L 245 205 M 240 210 L 245 215" stroke="#00d9ff" stroke-width="2" fill="none"/>
+                            <text x="200" y="230" fill="#e0f7ff" font-size="11" text-anchor="middle">Alta Presión</text>
+                            <!-- Título -->
+                            <text x="200" y="30" fill="#00d9ff" font-size="16" font-weight="bold" text-anchor="middle">Faraday (1823)</text>
+                            <text x="200" y="50" fill="#e0f7ff" font-size="12" text-anchor="middle">Licuefacción por Presión</text>
+                            <text x="200" y="270" fill="#e0f7ff" font-size="11" text-anchor="middle">NH₃(g) → NH₃(l)</text>
+                        </svg>
+                        <p><strong>Proceso:</strong> Cambio de fase termodinámico (compresión autógena).</p>
+                        <p><strong>Método:</strong> Michael Faraday usó un tubo de vidrio grueso en forma de "V", calentando un extremo con un compuesto liberador de amoníaco y enfriando el otro con hielo y sal.</p>
+                        <p><strong>Resultado:</strong> La alta presión combinada con el frío licuó el gas, demostrando que los gases son vapores de líquidos con puntos de ebullición muy bajos.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Antes del s. XX</div>
+                        <h3>Destilación de la Hulla</h3>
+                        <p><strong>Método:</strong> Destilación destructiva del carbón en la producción de coque y gas de alumbrado.</p>
+                        <p><strong>Recuperación:</strong> El amoníaco se obtenía como subproducto mediante lavado con agua o ácido sulfúrico, formando sales de amonio como sulfato de amonio.</p>
+                        <p><strong>Limitaciones:</strong> Método ineficiente, dependiente de la industria del carbón, no podía satisfacer la creciente demanda para fertilizantes y explosivos con el crecimiento poblacional.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">1908-1913</div>
+                        <h3>Proceso Haber-Bosch - Síntesis Industrial</h3>
+                        <svg class="process-svg" viewBox="0 0 400 300" style="width: 100%; max-width: 400px; margin: 1rem auto; display: block;">
+                            <!-- Reactor Haber-Bosch -->
+                            <defs>
+                                <linearGradient id="reactor" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#ff6b35;stop-opacity:0.6" />
+                                    <stop offset="100%" style="stop-color:#7b2ff7;stop-opacity:0.6" />
+                                </linearGradient>
+                            </defs>
+                            <!-- Reactor principal -->
+                            <rect x="140" y="80" width="120" height="140" rx="10" fill="url(#reactor)" stroke="#ff6b35" stroke-width="4"/>
+                            <!-- Entrada N2 -->
+                            <path d="M 60 100 L 140 100" stroke="#4169e1" stroke-width="4" marker-end="url(#arrowblue)"/>
+                            <text x="80" y="95" fill="#4169e1" font-size="12">N₂</text>
+                            <!-- Entrada H2 -->
+                            <path d="M 60 130 L 140 130" stroke="#ff1493" stroke-width="4"/>
+                            <text x="80" y="125" fill="#ff1493" font-size="12">3H₂</text>
+                            <!-- Catalizador -->
+                            <circle cx="200" cy="150" r="25" fill="#8b4513" opacity="0.7" stroke="#00d9ff" stroke-width="2"/>
+                            <text x="200" y="155" fill="#e0f7ff" font-size="11" text-anchor="middle">Fe</text>
+                            <!-- Indicadores de calor y presión -->
+                            <text x="200" y="70" fill="#ff6b35" font-size="13" text-anchor="middle" font-weight="bold">400-500°C</text>
+                            <text x="200" y="240" fill="#7b2ff7" font-size="13" text-anchor="middle" font-weight="bold">200 atm</text>
+                            <!-- Salida NH3 -->
+                            <path d="M 260 150 L 340 150" stroke="#00ff88" stroke-width="4"/>
+                            <text x="280" y="145" fill="#00ff88" font-size="12">NH₃</text>
+                            <!-- Recirculación -->
+                            <path d="M 320 150 Q 330 180, 300 200 Q 250 210, 200 200 Q 150 190, 140 160" 
+                                  stroke="#7b2ff7" stroke-width="3" fill="none" stroke-dasharray="5,5"/>
+                            <text x="250" y="220" fill="#7b2ff7" font-size="10">Recirculación</text>
+                            <!-- Título -->
+                            <text x="200" y="30" fill="#ff6b35" font-size="16" font-weight="bold" text-anchor="middle">Haber-Bosch (1908-1913)</text>
+                            <text x="200" y="50" fill="#e0f7ff" font-size="11" text-anchor="middle">Síntesis Industrial</text>
+                            <text x="200" y="280" fill="#00ff88" font-size="11" text-anchor="middle">N₂ + 3H₂ ⇌ 2NH₃</text>
+                        </svg>
+                        <p><strong>El Cambio Mundial:</strong> Síntesis catalítica de alta presión que revolucionó la producción de alimentos.</p>
+                        <p><strong>Reacción:</strong> N₂ (g) + 3H₂ (g) ⇌ 2NH₃ (g)</p>
+                        <p><strong>Condiciones:</strong> 200 atm, 400-500°C, catalizador de hierro con promotores de potasio y aluminio.</p>
+                        <p><strong>Innovación de Bosch:</strong> Sistema de recirculación que separa el NH₃ líquido y recicla gases no reaccionados, logrando conversión del 98%.</p>
+                        <p style="margin-top: 1rem; color: var(--success);"><strong>Impacto:</strong> Se estima que el 50% de la población mundial depende de alimentos cultivados con fertilizantes derivados del amoníaco sintético.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">1914</div>
+                        <h3>Oxidación de Amoniaco - Proceso Ostwald</h3>
+                        <svg class="process-svg" viewBox="0 0 400 300" style="width: 100%; max-width: 400px; margin: 1rem auto; display: block;">
+                            <!-- Proceso Ostwald -->
+                            <defs>
+                                <linearGradient id="flame" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#ffff00;stop-opacity:0.8" />
+                                    <stop offset="50%" style="stop-color:#ff6b35;stop-opacity:0.8" />
+                                    <stop offset="100%" style="stop-color:#ff0000;stop-opacity:0.6" />
+                                </linearGradient>
+                            </defs>
+                            <!-- Entrada NH3 + O2 -->
+                            <path d="M 60 140 L 120 140" stroke="#00ff88" stroke-width="4"/>
+                            <text x="70" y="130" fill="#00ff88" font-size="12">NH₃</text>
+                            <path d="M 60 160 L 120 160" stroke="#00d9ff" stroke-width="4"/>
+                            <text x="70" y="175" fill="#00d9ff" font-size="12">O₂</text>
+                            <!-- Malla de platino -->
+                            <rect x="120" y="120" width="80" height="60" fill="#c0c0c0" opacity="0.3" stroke="#ffffff" stroke-width="2"/>
+                            <!-- Trama de la malla -->
+                            <line x1="130" y1="130" x2="130" y2="170" stroke="#ffffff" stroke-width="1" opacity="0.6"/>
+                            <line x1="145" y1="130" x2="145" y2="170" stroke="#ffffff" stroke-width="1" opacity="0.6"/>
+                            <line x1="160" y1="130" x2="160" y2="170" stroke="#ffffff" stroke-width="1" opacity="0.6"/>
+                            <line x1="175" y1="130" x2="175" y2="170" stroke="#ffffff" stroke-width="1" opacity="0.6"/>
+                            <line x1="190" y1="130" x2="190" y2="170" stroke="#ffffff" stroke-width="1" opacity="0.6"/>
+                            <line x1="125" y1="135" x2="195" y2="135" stroke="#ffffff" stroke-width="1" opacity="0.6"/>
+                            <line x1="125" y1="150" x2="195" y2="150" stroke="#ffffff" stroke-width="1" opacity="0.6"/>
+                            <line x1="125" y1="165" x2="195" y2="165" stroke="#ffffff" stroke-width="1" opacity="0.6"/>
+                            <!-- Calor intenso -->
+                            <circle cx="160" cy="150" r="30" fill="url(#flame)" opacity="0.7"/>
+                            <text x="160" y="115" fill="#ff6b35" font-size="11" text-anchor="middle">Pt/Rh</text>
+                            <text x="160" y="195" fill="#ff6b35" font-size="11" text-anchor="middle" font-weight="bold">900°C</text>
+                            <!-- Salida NO -->
+                            <path d="M 200 140 L 270 140" stroke="#ffa500" stroke-width="4"/>
+                            <text x="220" y="135" fill="#ffa500" font-size="12">NO</text>
+                            <!-- Absorción en agua -->
+                            <rect x="270" y="120" width="60" height="80" rx="5" fill="#00d9ff" opacity="0.2" stroke="#00d9ff" stroke-width="2"/>
+                            <text x="300" y="165" fill="#00d9ff" font-size="11" text-anchor="middle">H₂O</text>
+                            <!-- HNO3 -->
+                            <path d="M 300 200 L 300 250" stroke="#ff6b35" stroke-width="4"/>
+                            <text x="310" y="230" fill="#ff6b35" font-size="12">HNO₃</text>
+                            <!-- Bomba/Explosivo -->
+                            <circle cx="300" cy="265" r="15" fill="#ff0000" opacity="0.3" stroke="#ff0000" stroke-width="2"/>
+                            <text x="300" y="270" fill="#ff0000" font-size="16" text-anchor="middle">💥</text>
+                            <!-- Título -->
+                            <text x="200" y="30" fill="#ff6b35" font-size="16" font-weight="bold" text-anchor="middle">Ostwald (1914)</text>
+                            <text x="200" y="50" fill="#e0f7ff" font-size="11" text-anchor="middle">Oxidación de Amoniaco</text>
+                            <text x="200" y="290" fill="#e0f7ff" font-size="10" text-anchor="middle">4NH₃ + 5O₂ → 4NO + 6H₂O → HNO₃</text>
+                        </svg>
+                        <p><strong>Proceso:</strong> Conversión de Amoniaco a Ácido Nítrico (uso bélico).</p>
+                        <p><strong>Contexto:</strong> Durante WWI, Alemania quedó aislada del salitre de Chile. Necesitaban explosivos.</p>
+                        <p><strong>Método:</strong> NH₃ mezclado con aire pasa rápidamente a través de malla de Platino/Rodio al rojo vivo.</p>
+                        <p><strong>Reacción:</strong> 4NH₃ + 5O₂ → 4NO + 6H₂O</p>
+                        <p><strong>Resultado:</strong> Óxidos de nitrógeno se absorben en agua formando HNO₃, base para dinamita (TNT) y pólvora sin humo.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card" style="margin-top: 3rem;">
+                <h3>Avances Posteriores</h3>
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <h3 style="font-size: 1.3rem; margin: 0;">Optimización de Catalizadores (1960s)</h3>
+                            <span class="accordion-icon">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Se desarrollaron catalizadores más eficientes basados en rutenio que permiten operar a presiones más bajas que el proceso Haber-Bosch original.</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <h3 style="font-size: 1.3rem; margin: 0;">Eficiencia Energética</h3>
+                            <span class="accordion-icon">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>El proceso Haber-Bosch consume alrededor del 1-2% de la energía global. Se han implementado mejoras en:</p>
+                            <ul style="margin-top: 1rem;">
+                                <li>Recuperación de calor</li>
+                                <li>Sistemas de compresión optimizados</li>
+                                <li>Diseño avanzado de reactores</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <h3 style="font-size: 1.3rem; margin: 0;">Amoníaco "Verde" (2010s-presente)</h3>
+                            <span class="accordion-icon">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Investigación en producción de amoníaco usando hidrógeno obtenido por electrólisis del agua con energía renovable (eólica, solar), eliminando las emisiones de CO₂ asociadas al hidrógeno fósil del gas natural.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="aplicaciones">
+            <h2 class="section-title">Aplicaciones Modernas</h2>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>Agricultura - Fertilizantes</h3>
+                    <p>Base fundamental para fertilizantes nitrogenados que alimentan al 50% de la población mundial.</p>
+                    <ul style="margin-top: 1rem;">
+                        <li>Urea (CO(NH₂)₂)</li>
+                        <li>Nitrato de amonio (NH₄NO₃)</li>
+                        <li>Sulfato de amonio ((NH₄)₂SO₄)</li>
+                        <li>Fosfato de amonio</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h3>Refrigeración Industrial</h3>
+                    <p>Refrigerante altamente eficiente debido a su alto calor latente de vaporización (23.35 kJ/mol).</p>
+                    <p style="margin-top: 1rem;">Permite eficiente transferencia térmica en sistemas de refrigeración a gran escala: plantas procesadoras, almacenes frigoríficos, pistas de hielo.</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>Control de Emisiones - SCR</h3>
+                    <p>Agente reductor en sistemas de Reducción Catalítica Selectiva (SCR) para reducir NOₓ en:</p>
+                    <ul style="margin-top: 1rem;">
+                        <li>Vehículos pesados (camiones, autobuses)</li>
+                        <li>Centrales eléctricas</li>
+                        <li>Plantas industriales</li>
+                    </ul>
+                    <p style="margin-top: 1rem;"><strong>Reacción:</strong> NH₃ + NOₓ → N₂ + H₂O</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>Vector Energético del Futuro</h3>
+                    <p style="color: var(--success);">El amoníaco se posiciona como combustible limpio en la transición energética:</p>
+                    <ul style="margin-top: 1rem;">
+                        <li><strong>Almacenamiento de H₂:</strong> Más seguro que H₂ gaseoso, se licúa a presión moderada</li>
+                        <li><strong>Turbinas eléctricas:</strong> Generación de energía</li>
+                        <li><strong>Motores marinos:</strong> Transporte marítimo internacional sin emisiones de carbono</li>
+                        <li><strong>Celdas de combustible:</strong> Investigación activa</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h3>Industria Química</h3>
+                    <p>Materia prima esencial para:</p>
+                    <ul style="margin-top: 1rem;">
+                        <li>Ácido nítrico (HNO₃) - Proceso Ostwald</li>
+                        <li>Plásticos y polímeros</li>
+                        <li>Explosivos (uso controlado)</li>
+                        <li>Productos farmacéuticos</li>
+                        <li>Tintes y colorantes</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h3>Productos de Limpieza</h3>
+                    <p>Agente de limpieza en soluciones acuosas por su capacidad para:</p>
+                    <ul style="margin-top: 1rem;">
+                        <li>Disolver grasas y aceites</li>
+                        <li>Eliminar manchas difíciles</li>
+                        <li>Limpiar superficies de vidrio sin dejar residuos</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="info-card" style="margin-top: 2rem; background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 217, 255, 0.1)); border-color: var(--success);">
+                <h3 style="color: var(--success);">El Futuro del Amoníaco</h3>
+                <p>La investigación actual se enfoca en la producción de "amoníaco verde" mediante electrólisis del agua con energías renovables, eliminando completamente las emisiones de CO₂. Esto posicionaría al NH₃ como pilar fundamental de la economía del hidrógeno y la descarbonización global.</p>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p class="utpl-logo">Universidad Técnica Particular de Loja</p>
+        <p style="margin-top: 1rem;">Ingeniería Química - 2025/2026</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem;">Ariana Peña | Jennifer Sarango | Ariel Parra | Ali Panamito</p>
+    </footer>
+
+    <script>
+        function showTab(tabName) {
+            // Ocultar todos los contenidos
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remover clase active de todos los botones
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Mostrar el contenido seleccionado
+            document.getElementById(tabName).classList.add('active');
+            
+            // Activar el botón clickeado
+            event.target.classList.add('active');
+        }
+
+        function toggleAccordion(header) {
+            const item = header.parentElement;
+            const wasActive = item.classList.contains('active');
+            
+            // Cerrar todos los acordeones en el mismo contenedor
+            const container = item.parentElement;
+            container.querySelectorAll('.accordion-item').forEach(i => {
+                i.classList.remove('active');
+            });
+            
+            // Si no estaba activo, activarlo
+            if (!wasActive) {
+                item.classList.add('active');
+            }
+        }
+
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            const navHeight = document.querySelector('nav').offsetHeight;
+            const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = elementPosition - navHeight - 20;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        }
+
+        // Smooth scroll para el indicador
+        document.querySelector('.scroll-indicator').addEventListener('click', function() {
+            scrollToSection('equipo');
+        });
+    </script>
+</body>
+</html>rem;">
+                                <li><strong>Símbolo Pearson:</strong> cP16</li>
+                                <li><strong>Grupo espacial:</strong> P2₁3 (número 198)</li>
+                                <li><strong>Constante de red:</strong> 0.5125 nm</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="quimicas" class="tab-content">
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>Naturaleza Básica</h3>
+                        <p>El amoníaco es una base de Brønsted-Lowry. En solución acuosa, acepta protones (H⁺) formando el ion amonio (NH₄⁺). Al neutralizar con un ácido fuerte hasta pH=7, el 99.4% del amoníaco se protona.</p>
+                        <p style="margin-top: 1rem; color: var(--primary);"><strong>pH en solución 1M:</strong> aproximadamente 11.6</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>Reacciones con Ácidos</h3>
+                        <p>Reacciona fácilmente con ácidos formando sales de amonio estables y sin olor:</p>
+                        <ul style="margin-top: 1rem;">
+                            <li>NH₃ + HCl → NH₄Cl (cloruro de amonio)</li>
+                            <li>2NH₃ + H₂SO₄ → (NH₄)₂SO₄ (sulfato de amonio)</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">Este proceso se usa para desodorizar el amoníaco.</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>Puentes de Hidrógeno</h3>
+                        <p>Forma fuertes puentes de hidrógeno intermoleculares debido a su alta polaridad, lo que explica:</p>
+                        <ul style="margin-top: 1rem;">
+                            <li>Gran solubilidad en agua (>30 g/100 mL a 20°C)</li>
+                            <li>Punto de ebullición elevado para su masa molecular</li>
+                            <li>Propiedades termodinámicas únicas</li>
+                        </ul>
+                    </div>
+                    <div class="info-card">
+                        <h3>Ion Amonio (NH₄⁺)</h3>
+                        <p>Se forma cuando el NH₃ acepta un protón. Características:</p>
+                        <ul style="margin-top: 1rem;">
+                            <li>Geometría tetraédrica regular</li>
+                            <li>Isoelectrónico con el metano (CH₄)</li>
+                            <li>Alta estabilidad estructural</li>
+                            <li>Ángulos de enlace: 109.5° (tetraédrico perfecto)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="moleculares" class="tab-content">
+                <div class="info-card">
+                    <h3>Geometría Molecular - Teoría VSEPR</h3>
+                    <p>La molécula NH₃ presenta geometría <strong>trigonal piramidal</strong>. El átomo de nitrógeno central posee cuatro pares de electrones: tres enlaces covalentes con hidrógeno y un par libre.</p>
+                    <ul style="margin-top: 1rem;">
+                        <li><strong>Configuración base:</strong> Tetraédrica</li>
+                        <li><strong>Ángulo H-N-H:</strong> 106.7° (reducido del tetraédrico ideal de 109.5° por la repulsión del par libre)</li>
+                        <li><strong>Par de electrones no compartido:</strong> Permite que actúe como base, aceptando protones</li>
+                        <li><strong>Momento dipolar:</strong> Alta polaridad debido a la distribución asimétrica de carga</li>
+                    </ul>
+                </div>
+
+                <div class="info-card" style="margin-top: 2rem;">
+                    <h3>Inversión del Nitrógeno - Fenómeno Cuántico</h3>
+                    <p>Característica cuántica notable: el átomo de nitrógeno puede "atravesar" el plano formado por los tres hidrógenos, como una sombrilla que se da vuelta.</p>
+                    <ul style="margin-top: 1
